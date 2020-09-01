@@ -50,6 +50,7 @@ public class main {
 
             } else if (userChoice.equalsIgnoreCase("d")) { //decode
                 int shift;
+                scanner.nextLine();
                 System.out.println("Shift known? (y/n) ");
                 String answer = scanner.nextLine();
                 if (answer.equalsIgnoreCase("y")) {  //shift is known
@@ -65,7 +66,6 @@ public class main {
 
                 } else {  //shift is not known
                     shift = 1;  //start shift at 1...shift 0 would be the start
-                    scanner.nextLine();
                     System.out.println("Enter phrase to be decoded: ");
                     String phrase = scanner.nextLine();     // store phrase to be decoded
                     while (shift != 27) {    // goes through shift 26 times to include start shift at the end
@@ -93,15 +93,22 @@ public class main {
     public static void shiftAlphabet(int shift, String[] encodedAlphabet, String[] mainAlphabet, String alphabet
                                 ) {
         int x = shift;
-        for (int i = (26 - shift); i < 26; i++) {   // 26 - shift = shift back so letters after index 25 will go to index 0
-            int index = shift - x;  // increments beginning of array index...0...1...2...n
-            encodedAlphabet[index] = mainAlphabet[i]; //shifts later mainAlphabet letters to beginning indexes of encodedAlphabet
-            x--;    //decrements x to increase array index from 0...1...2...n
 
+        for(int i = 0; i < 26; i++) {
+            int mod = (i+shift) % 26;
+            encodedAlphabet[mod] = mainAlphabet[i];
         }
-        for (int m = 0; m + shift < alphabet.length(); m++) { // shifts beginning of alphabet until last index is reached
-            encodedAlphabet[m + shift] = mainAlphabet[m]; //encodedAlphabet shifts of by m(letter index) + shift...arrays are lined up
-        }
+
+
+        //for (int i = (26 - shift); i < 26; i++) {   // 26 - shift = shift back so letters after index 25 will go to index 0
+         //   int index = shift - x;  // increments beginning of array index...0...1...2...n
+        //    encodedAlphabet[index] = mainAlphabet[i]; //shifts later mainAlphabet letters to beginning indexes of encodedAlphabet
+        //    x--;    //decrements x to increase array index from 0...1...2...n
+
+       // }
+      //  for (int m = 0; m + shift < alphabet.length(); m++) { // shifts beginning of alphabet until last index is reached
+      //      encodedAlphabet[m + shift] = mainAlphabet[m]; //encodedAlphabet shifts of by m(letter index) + shift...arrays are lined up
+     //  }
 
 
     }
